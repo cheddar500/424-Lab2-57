@@ -466,6 +466,26 @@ Disassembly of section .text:
   4010ba:	5b                   	pop    %rbx
   4010bb:	c3                   	retq   
 
+0x000000000040107b <+0>:     push   %rbx
+0x000000000040107c <+1>:     mov    %rdi,%rbx
+0x000000000040107f <+4>:     callq  0x4012b1 <string_length>
+0x0000000000401084 <+9>:     cmp    $0x6,%eax
+0x0000000000401087 <+12>:    je     0x40108e <phase_5+19>
+0x0000000000401089 <+14>:    callq  0x401549 <explode_bomb>
+0x000000000040108e <+19>:    mov    $0x0,%eax
+0x0000000000401093 <+24>:    mov    $0x0,%edx
+0x0000000000401098 <+29>:    movzbl (%rbx,%rax,1),%ecx
+0x000000000040109c <+33>:    and    $0xf,%ecx
+0x000000000040109f <+36>:    add    0x402520(,%rcx,4),%edx
+0x00000000004010a6 <+43>:    add    $0x1,%rax
+0x00000000004010aa <+47>:    cmp    $0x6,%rax
+0x00000000004010ae <+51>:    jne    0x401098 <phase_5+29>
+0x00000000004010b0 <+53>:    cmp    $0x31,%edx
+0x00000000004010b3 <+56>:    je     0x4010ba <phase_5+63>
+0x00000000004010b5 <+58>:    callq  0x401549 <explode_bomb>
+0x00000000004010ba <+63>:    pop    %rbx
+0x00000000004010bb <+64>:    retq
+
 00000000004010bc <phase_6>:
   4010bc:	41 55                	push   %r13
   4010be:	41 54                	push   %r12
@@ -530,7 +550,7 @@ Disassembly of section .text:
   401185:	bd 05 00 00 00       	mov    $0x5,%ebp
   40118a:	48 8b 43 08          	mov    0x8(%rbx),%rax
   40118e:	8b 00                	mov    (%rax),%eax
-  401190:	39 03                	cmp    %eax,(%rbx)
+  401190:	39 03                	cmp    %eax,(%rbx)  # Last check before blow-up
   401192:	7d 05                	jge    401199 <phase_6+0xdd>
   401194:	e8 b0 03 00 00       	callq  401549 <explode_bomb>
   401199:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
